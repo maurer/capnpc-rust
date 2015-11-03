@@ -63,8 +63,9 @@ pub mod addressbook {
                 bob.get_employment().set_unemployed(());
             }
         }
+        let canonical_message = ::capnp::message::Builder::canonicalize(::capnp::message::HeapAllocator::new(), message.get_root::<::capnp::any_pointer::Builder>().unwrap().as_reader()).unwrap();
 
-        serialize_packed::write_message(&mut ::std::io::stdout(), &message)
+        serialize_packed::write_message(&mut ::std::io::stdout(), &canonical_message)
     }
 
     pub fn print_address_book() -> ::capnp::Result<()> {
